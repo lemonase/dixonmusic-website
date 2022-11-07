@@ -1,2 +1,3 @@
 # dixonmusic-website
-A website for Dixon Music
+
+A simple static HTML based website for Dixon Music
