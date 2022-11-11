@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,91 @@
 </head>
 
 <body>
-  <h1>Welcome to: dixonmusic.net</h1>
-  <h2>This website is currently under construction.</h2>
-  <img src="../images/website-under-construction.png" alt="website under construction" width="300px">
-  <h2>Please come back later to experience the new site!</h2>
+
+  <h1 class="greeting">Dixon Music</h1>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="#"><img id="record-icon" src="images/record.svg" alt="record icon" width="100px"></a></li>
+      <li><a href="#"><button>Discogs</button> </a></li>
+      <li><a href="#"><button>MusicRack</button></a></li>
+      <li><a href="#"><button>Ebay</button></a></li>
+      <li><a href="#"><img id="record-icon" src="images/record.svg" alt="record icon" width="100px"></a></li>
+    </ul>
+  </nav>
+
+  <div class="record-grid">
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+    <div class="grid-block"></div>
+  </div>
+
+  <footer>
+    DixonMusic.net
+  </footer>
 </body>
+
+
+<style>
+  .greeting {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    color: lightgreen;
+  }
+
+  .navbar {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .navbar ul {
+    list-style-type: none;
+  }
+
+  .navbar ul li {
+    display: inline;
+  }
+
+  #record-icon {
+    transition: transform .7s ease-in-out;
+  }
+
+  #record-icon:hover {
+    transform: rotate(360deg);
+  }
+
+  .record-grid {
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+  }
+
+  .grid-block {
+    color: black;
+    background-color: aqua;
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+    background-image: url("https://i.discogs.com/goDt1i0CDHBrpH59qMt0ZLfONhcRW9ZjLg-SSFopBL4/rs:fit/g:sm/q:40/h:300/w:300/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTI0ODE0/NTg5LTE2NjY2NzUy/NDItMTAzMC5qcGVn.jpeg");
+    background-size: 150px 150px;
+  }
+
+</style>
 
 </html>
