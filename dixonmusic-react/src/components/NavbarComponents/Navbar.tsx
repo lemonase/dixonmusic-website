@@ -15,12 +15,15 @@ const MainNavbar = () => {
         <Navbar.Brand href="#home">
           <NavbarBrandLogo />
           <BrandText />
+          <NavbarBrandLogo />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Navbar.Collapse className="justify-content-end">
             <Nav className="link-text">
-              <Nav.Link href="#">Discogs</Nav.Link>
+              <Nav.Link href="https://www.discogs.com/seller/dixonmusic/profile">
+                Discogs
+              </Nav.Link>
               <Nav.Link href="#">Ebay</Nav.Link>
               <Nav.Link href="#">MusicStack</Nav.Link>
             </Nav>
