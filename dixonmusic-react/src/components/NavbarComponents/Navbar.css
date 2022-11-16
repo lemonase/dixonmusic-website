@@ -1,0 +1,8 @@
+.brand-text {
+    display: inline;
+    color: lightgreen;
+}
+
+.link-text > a {
+    color: lightblue;
+}
