@@ -1,3 +1,13 @@
+.primary-nav {
+  color: blue;
+}
+.primary-nav > .container {
+  justify-content: flex-start !important;
+}
+.primary-nav > .container > .nav-link {
+  margin-left: 2%;
+}
+
 .brand-text {
   display: inline;
   color: #38ec20;
@@ -5,16 +15,26 @@
   font-size: 2rem;
 }
 
+.nav-link > a {
+  font-family: "Manrope", sans-serif;
+  color: rgba(255, 255, 255, 0.493);
+  text-decoration: none;
+}
+.nav-link > a:hover {
+  color: white;
+}
+
+.navbar-spacer {
+  color: #38ec20;
+}
+
 .second-nav {
   font-family: "Manrope", sans-serif;
   font-style: bold;
   font-size: 1.5rem;
 }
-
 .nav-text {
+  font-family: "Zilla Slab Highlight", cursive;
+  font-size: 1.5rem;
   color: white;
-}
-
-.link-text > a {
-  color: lightblue;
 }

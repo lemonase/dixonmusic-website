@@ -15,30 +15,37 @@ const MainNavbar = () => {
   return (
     <>
       <Navbar
+        sticky="top"
         bg="dark"
         variant="dark"
         expand="lg"
-        className="justify-content-center"
+        className="primary-nav"
       >
         <Container>
-          <Link to="/">
-            <Navbar.Brand>
-              <NavbarBrandLogo />
-              <BrandText />
-              <NavbarBrandLogo />
-            </Navbar.Brand>
-          </Link>
-          <Link to="/about">About</Link>
-          <Link to="/shipping-info">Shipping Info</Link>
+          <Nav.Link>
+            <Link to="/">
+              <Navbar.Brand>
+                <NavbarBrandLogo />
+                <BrandText />
+                <NavbarBrandLogo />
+              </Navbar.Brand>
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="/about">About</Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to="/shipping-info">Shipping Info</Link>
+          </Nav.Link>
         </Container>
       </Navbar>
 
       <div
+        className="navbar-spacer"
         style={{ paddingTop: "10px", backgroundColor: "#38ec20" }}
-        className="color-space"
       ></div>
 
-      <Navbar bg="dark" variant="dark" className="second-nav">
+      <Navbar sticky="top" bg="dark" variant="dark" className="second-nav">
         <Container>
           <Nav className="nav-text">Find us on these platforms:</Nav>
           <Nav className="link-text">

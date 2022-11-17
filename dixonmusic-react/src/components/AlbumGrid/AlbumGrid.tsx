@@ -6,10 +6,6 @@ import Card from "react-bootstrap/Card";
 
 import "./AlbumGrid.css";
 
-// import Discogs from "../../../node_modules/disconnect";
-
-// const dis = new Discogs({ userToken: import.meta.env["DISCOGS_API_TOKEN"] });
-
 function AlbumGrid() {
   const [listings, setListings] = useState([]);
   const [isLoading, setLoading] = useState(true);
