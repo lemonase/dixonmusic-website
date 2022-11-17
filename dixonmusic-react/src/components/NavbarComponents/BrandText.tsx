@@ -1,7 +1,7 @@
 import React from "react";
 
 const emojis = "✨";
-const text = "DixonMusic";
+const text = "Welcome to DixonMusic!";
 
 function BrandText() {
   return (

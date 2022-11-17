@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@900&display=swap');
+
 .brand-text {
     display: inline;
     color: lightgreen;
+    font-family: 'Urbanist', sans-serif;
 }
 
 .link-text > a {
