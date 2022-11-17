@@ -1,1 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Faster+One&family=Manrope&family=Nabla&family=Urbanist:wght@900&family=Zilla+Slab+Highlight:wght@400;700&display=swap");
+
+.body-heading {
+  margin-top: 5%;
+}
+
+.body-container {
+  margin: auto 0;
+  justify-content: center;
+  text-align: center;
+}
+
+.main-body-text {
+  text-align: left;
+  margin: 5%;
+}

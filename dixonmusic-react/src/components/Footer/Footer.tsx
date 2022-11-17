@@ -1,7 +1,7 @@
 import React from "react";
 
 function Footer() {
-  return <div>Footer</div>;
+  return <div className="body-container">© 2022 DixonMusic</div>;
 }
 
 export default Footer;

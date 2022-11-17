@@ -1,15 +1,16 @@
 import { React, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
+
+import AlbumCard from "./AlbumCard";
 
 import "./AlbumGrid.css";
+import { SiJest } from "react-icons/si";
 
 function AlbumGrid() {
   const [listings, setListings] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     fetchListings();
@@ -29,53 +30,29 @@ function AlbumGrid() {
       });
   };
 
-  console.log(listings[0]);
-
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-
   const listingsItems = listings.map((listing) => (
-    // TODO: Cleanup these styles in a stylesheet
-    <Col style={{ padding: 0 }}>
-      <Card
-        style={{ height: "200px", width: "200px" }}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
-      >
-        <Card.Img variant="bottom" src={listing["release"]["thumbnail"]} />
-        <Card.ImgOverlay>
-          {/* TODO: Fix the overlay to only show on individual cards */}
-          {isHovering && (
-            <Card.Link href={listing["uri"]} style={{ color: "yellow" }}>
-              {listing["release"]["description"]}
-            </Card.Link>
-          )}
-        </Card.ImgOverlay>
-      </Card>
-      {/* <img
-        src={listing["release"]["thumbnail"]}
-        alt={listing["release"]["description"]}
-      /> */}
-    </Col>
+    <AlbumCard
+      imageSrc={listing["release"]["thumbnail"]}
+      cardLink={listing["uri"]}
+      cardDescription={listing["release"]["description"]}
+      loading={isLoading}
+      width="150px"
+      height="150px"
+    />
   ));
 
   // TODO: Improve loading state for this component
   if (isLoading) {
     return (
-      <Container>
-        <div>Loading...</div>
+      <Container className="loading-spinner">
+        <div>Loading Album Images... </div>
+        <Spinner animation="grow" />
       </Container>
     );
   }
 
   return (
     <Container className="album-container">
-      <h2>Listings: </h2>
       <Row>{listingsItems}</Row>
     </Container>
   );

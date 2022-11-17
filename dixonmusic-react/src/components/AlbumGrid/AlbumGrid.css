@@ -4,13 +4,11 @@
   padding: 0px;
 }
 
-.col {
-  padding: 0px;
-}
-
-.card {
-  height: 200px;
-  width: 200px;
-  margin: 0px;
-  padding: 0px;
+.loading-spinner {
+  font-family: "Manrope", sans-serif;
+  display: flex;
+  width: 100%;
+  max-width: 60%;
+  margin: 0 auto;
+  justify-content: center;
 }

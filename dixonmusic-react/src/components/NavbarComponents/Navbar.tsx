@@ -22,21 +22,15 @@ const MainNavbar = () => {
         className="primary-nav"
       >
         <Container>
-          <Nav.Link>
-            <Link to="/">
-              <Navbar.Brand>
-                <NavbarBrandLogo />
-                <BrandText />
-                <NavbarBrandLogo />
-              </Navbar.Brand>
-            </Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/about">About</Link>
-          </Nav.Link>
-          <Nav.Link>
-            <Link to="/shipping-info">Shipping Info</Link>
-          </Nav.Link>
+          <Link to="/">
+            <Navbar.Brand>
+              <NavbarBrandLogo />
+              <BrandText />
+              <NavbarBrandLogo />
+            </Navbar.Brand>
+          </Link>
+          <Link to="/about">About</Link>
+          <Link to="/shipping-info">Shipping Info</Link>
         </Container>
       </Navbar>
 
@@ -60,12 +54,14 @@ const MainNavbar = () => {
               variant="warning"
               buttonText="Ebay"
               iconType="ebay"
+              disabled={true}
             />
             <ExternalLinkButton
               href="#"
               variant="info"
               buttonText="MusicStack"
               iconType="musicstack"
+              disabled={true}
             />
           </Nav>
         </Container>

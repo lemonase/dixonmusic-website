@@ -4,7 +4,7 @@
 .primary-nav > .container {
   justify-content: flex-start !important;
 }
-.primary-nav > .container > .nav-link {
+.primary-nav > .container > a {
   margin-left: 2%;
 }
 
@@ -15,12 +15,12 @@
   font-size: 2rem;
 }
 
-.nav-link > a {
+.container > a {
   font-family: "Manrope", sans-serif;
   color: rgba(255, 255, 255, 0.493);
   text-decoration: none;
 }
-.nav-link > a:hover {
+.container > a:hover {
   color: white;
 }
 

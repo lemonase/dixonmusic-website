@@ -21,8 +21,8 @@ function IconSwitch(props: any) {
 
 function ExternalLinkButton(props: any) {
   return (
-    <Nav.Link href={props.href}>
-      <Button variant={props.variant}>
+    <Nav.Link href={props.href} target="_blank" rel="noreferrer noopener">
+      <Button disabled={props.disabled} variant={props.variant}>
         <IconSwitch iconType={props.iconType} /> {props.buttonText}{" "}
         <HiOutlineExternalLink />
       </Button>
