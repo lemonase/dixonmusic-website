@@ -4,6 +4,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 
+import { Outlet, Link } from "react-router-dom";
+
 import "./Navbar.css";
 import NavbarBrandLogo from "./NavbarBrandLogo";
 import BrandText from "./BrandText";
@@ -19,13 +21,18 @@ const MainNavbar = () => {
         className="justify-content-center"
       >
         <Container>
-          <Navbar.Brand href="#home">
-            <NavbarBrandLogo />
-            <BrandText />
-            <NavbarBrandLogo />
-          </Navbar.Brand>
+          <Link to="/">
+            <Navbar.Brand>
+              <NavbarBrandLogo />
+              <BrandText />
+              <NavbarBrandLogo />
+            </Navbar.Brand>
+          </Link>
+          <Link to="/about">About</Link>
+          <Link to="/shipping-info">Shipping Info</Link>
         </Container>
       </Navbar>
+
       <div
         style={{ paddingTop: "10px", backgroundColor: "#38ec20" }}
         className="color-space"
@@ -56,6 +63,7 @@ const MainNavbar = () => {
           </Nav>
         </Container>
       </Navbar>
+      <Outlet />
     </>
   );
 };

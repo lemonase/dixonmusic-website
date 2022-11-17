@@ -1,9 +1,9 @@
 import React from "react";
 
-function About() {
+function ShippingInfoText() {
   return (
     <>
-      <h2>About - Order Information</h2>
+      <h2>Shipping Info</h2>
 
       <p>
         Discounts for larger orders (over 10 items) : Contact us at :
@@ -42,4 +42,4 @@ function About() {
   );
 }
 
-export default About;
+export default ShippingInfoText;

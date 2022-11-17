@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import ShippingInfo from "./pages/ShippingInfo";
 
 import Navbar from "./components/NavbarComponents/Navbar";
-import HeroSection from "./components/HeroSection/HeroSection";
-import AlbumGrid from "./components/AlbumGrid/AlbumGrid";
-import Footer from "./components/Footer/Footer";
-import About from "./components/About/About";
+// import About from "./components/About/About";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <HeroSection />
-      <AlbumGrid />
-      <About></About>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />}></Route>
+          <Route path="about" element={<About />}></Route>
+          <Route path="shipping-info" element={<ShippingInfo />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    //   <About></About>
   );
 }
-
-export default App;
