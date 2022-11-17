@@ -26,12 +26,12 @@ const MainNavbar = () => {
           </Navbar.Brand>
         </Container>
       </Navbar>
+      <div
+        style={{ paddingTop: "10px", backgroundColor: "#38ec20" }}
+        className="color-space"
+      ></div>
 
-      <Navbar
-        bg="dark"
-        variant="dark"
-        className="justify-content-right second-nav"
-      >
+      <Navbar bg="dark" variant="dark" className="second-nav">
         <Container>
           <Nav className="nav-text">Find us on these platforms:</Nav>
           <Nav className="link-text">

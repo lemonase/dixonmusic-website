@@ -1,20 +1,20 @@
 .brand-text {
-    display: inline;
-    color: #38ec20;
-    font-family: 'Zilla Slab Highlight', cursive;
-    font-size: 2rem;
+  display: inline;
+  color: #38ec20;
+  font-family: "Zilla Slab Highlight", cursive;
+  font-size: 2rem;
 }
 
 .second-nav {
-    font-family: 'Manrope', sans-serif;
-    font-style: bold;
-    font-size: 1.5rem;
+  font-family: "Manrope", sans-serif;
+  font-style: bold;
+  font-size: 1.5rem;
 }
 
 .nav-text {
-    color: white;
+  color: white;
 }
 
 .link-text > a {
-    color: lightblue;
+  color: lightblue;
 }

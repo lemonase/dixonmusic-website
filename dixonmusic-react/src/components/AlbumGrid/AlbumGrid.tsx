@@ -68,6 +68,7 @@ function AlbumGrid() {
     </Col>
   ));
 
+  // TODO: Improve loading state for this component
   if (isLoading) {
     return (
       <Container>
