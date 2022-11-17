@@ -72,7 +72,7 @@ function AlbumGrid() {
   if (isLoading) {
     return (
       <Container>
-        <div>Loading...</div>;
+        <div>Loading...</div>
       </Container>
     );
   }

@@ -4,12 +4,12 @@ import Navbar from "../components/NavbarComponents/Navbar";
 import Footer from "../components/Footer/Footer";
 
 function Layout() {
-    return (
-        <>
-            <Navbar />
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Navbar />
+      <Footer />
+    </>
+  );
 }
 
 export default Layout;
