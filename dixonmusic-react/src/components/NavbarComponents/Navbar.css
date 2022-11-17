@@ -1,9 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@900&display=swap');
-
 .brand-text {
     display: inline;
-    color: lightgreen;
-    font-family: 'Urbanist', sans-serif;
+    color: #38ec20;
+    font-family: 'Zilla Slab Highlight', cursive;
+    font-size: 2rem;
+}
+
+.second-nav {
+    font-family: 'Manrope', sans-serif;
+    font-style: bold;
+    font-size: 1.5rem;
+}
+
+.nav-text {
+    color: white;
 }
 
 .link-text > a {

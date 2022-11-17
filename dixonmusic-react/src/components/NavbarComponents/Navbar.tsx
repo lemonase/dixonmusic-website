@@ -11,17 +11,29 @@ import ExternalLinkButton from "./ExternalLinkButton";
 
 const MainNavbar = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Container>
-        <Navbar.Brand href="#home">
-          <NavbarBrandLogo />
-          <BrandText />
-          <NavbarBrandLogo />
-        </Navbar.Brand>
+    <>
+      <Navbar
+        bg="dark"
+        variant="dark"
+        expand="lg"
+        className="justify-content-center"
+      >
+        <Container>
+          <Navbar.Brand href="#home">
+            <NavbarBrandLogo />
+            <BrandText />
+            <NavbarBrandLogo />
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse className="justify-content-left">
-          <Nav style={{ color: "white" }}>Find us on these platforms:</Nav>
+      <Navbar
+        bg="dark"
+        variant="dark"
+        className="justify-content-right second-nav"
+      >
+        <Container>
+          <Nav className="nav-text">Find us on these platforms:</Nav>
           <Nav className="link-text">
             <ExternalLinkButton
               href="https://www.discogs.com/seller/dixonmusic/profile"
@@ -42,9 +54,9 @@ const MainNavbar = () => {
               iconType="musicstack"
             />
           </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        </Container>
+      </Navbar>
+    </>
   );
 };
 
