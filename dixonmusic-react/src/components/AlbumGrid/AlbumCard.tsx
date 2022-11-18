@@ -18,25 +18,23 @@ function AlbumCard(props: any) {
   return (
     <>
       <Col style={{ padding: 0 }}>
-        <Card
-          className="album-card"
-          style={{ height: props.height, width: props.width }}
-          onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseOut}
-        >
-          <Card.Img
-            src={props.imageSrc}
-            className={`card-image${isHovering ? "-hovering" : ""}`}
-          />
-          <Card.ImgOverlay>
-            {/* TODO: Fix the overlay to only show on individual cards */}
-            {isHovering && (
-              <Card.Link href={props.cardLink}>
-                {props.cardDescription}
-              </Card.Link>
-            )}
-          </Card.ImgOverlay>
-        </Card>
+        <a href={props.cardLink}>
+          <Card
+            className="album-card"
+            style={{ height: props.height, width: props.width }}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+          >
+            <Card.Img
+              src={props.imageSrc}
+              className={`card-image${isHovering ? "-hovering" : ""}`}
+            />
+            <Card.ImgOverlay>
+              {/* TODO: Fix the overlay to only show on individual cards */}
+              {isHovering && <Card.Text>{props.cardDescription}</Card.Text>}
+            </Card.ImgOverlay>
+          </Card>
+        </a>
       </Col>
     </>
   );
