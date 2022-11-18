@@ -34,10 +34,7 @@ const MainNavbar = () => {
         </Container>
       </Navbar>
 
-      <div
-        className="navbar-spacer"
-        style={{ paddingTop: "10px", backgroundColor: "#38ec20" }}
-      ></div>
+      <div className="navbar-spacer"></div>
 
       <Navbar sticky="top" bg="dark" variant="dark" className="second-nav">
         <Container>

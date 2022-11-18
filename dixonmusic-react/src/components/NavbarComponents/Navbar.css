@@ -10,9 +10,9 @@
 
 .brand-text {
   display: inline;
-  color: #38ec20;
   font-family: "Zilla Slab Highlight", cursive;
   font-size: 2rem;
+  color: #38ec20;
 }
 
 .container > a {
@@ -24,10 +24,6 @@
   color: white;
 }
 
-.navbar-spacer {
-  color: #38ec20;
-}
-
 .second-nav {
   font-family: "Manrope", sans-serif;
   font-style: bold;
@@ -37,4 +33,58 @@
   font-family: "Zilla Slab Highlight", cursive;
   font-size: 1.5rem;
   color: white;
+}
+
+.navbar-spacer {
+  padding-top: 5px;
+
+  background: linear-gradient(
+    90deg,
+    #38ec20,
+    #13fff7,
+    #808eff,
+    #ef5aff,
+    #ffd423,
+    #ff5f23,
+    #ff26b4
+  );
+  background-size: 1200% 1200%;
+
+  -webkit-animation: NavbarGradientAnimation 20s ease infinite;
+  -moz-animation: NavbarGradientAnimation 20s ease infinite;
+  animation: NavbarGradientAnimation 20s ease infinite;
+}
+
+@-webkit-keyframes NavbarGradientAnimation {
+  0% {
+    background-position: 76% 0%;
+  }
+  50% {
+    background-position: 25% 100%;
+  }
+  100% {
+    background-position: 76% 0%;
+  }
+}
+@-moz-keyframes NavbarGradientAnimation {
+  0% {
+    background-position: 76% 0%;
+  }
+  50% {
+    background-position: 25% 100%;
+  }
+  100% {
+    background-position: 76% 0%;
+  }
+}
+@keyframes NavbarGradientAnimation {
+  0% {
+    background-position: 76% 0%;
+  }
+  50% {
+    background-position: 25% 100%;
+  }
+  100% {
+    background-position: 76% 0%;
+  }
 }
