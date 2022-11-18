@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import { HiOutlineExternalLink } from "react-icons/hi";
 import { SiDiscogs, SiEbay } from "react-icons/si";
 import { FiMusic } from "react-icons/fi";
+import { MdFiberSmartRecord } from "react-icons/md";
 
 function IconSwitch(props: any) {
   if (props.iconType == "discogs") {
@@ -15,6 +16,9 @@ function IconSwitch(props: any) {
   }
   if (props.iconType == "musicstack") {
     return <FiMusic />;
+  }
+  if (props.iconType == "cdandlp") {
+    return <MdFiberSmartRecord />;
   }
   return <></>;
 }

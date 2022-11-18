@@ -50,19 +50,23 @@ const MainNavbar = () => {
               iconType="discogs"
             />
             <ExternalLinkButton
+              href="https://www.musicstack.com/seller/dixonmusic"
+              variant="info"
+              buttonText="MusicStack"
+              iconType="musicstack"
+            />
+            <ExternalLinkButton
+              href="https://www.cdandlp.com/seller/2/431937/dixonmusic.html"
+              variant="warning"
+              buttonText="CD&LP"
+              iconType="cdandlp"
+            />
+            {/* <ExternalLinkButton
               href="#"
               variant="warning"
               buttonText="Ebay"
               iconType="ebay"
-              disabled={true}
-            />
-            <ExternalLinkButton
-              href="#"
-              variant="info"
-              buttonText="MusicStack"
-              iconType="musicstack"
-              disabled={true}
-            />
+            /> */}
           </Nav>
         </Container>
       </Navbar>
