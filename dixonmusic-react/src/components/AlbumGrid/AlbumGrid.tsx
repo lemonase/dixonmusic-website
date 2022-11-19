@@ -20,6 +20,7 @@ function AlbumGrid() {
     const userName = "dixonmusic";
     const apiToken = import.meta.env.VITE_DISCOGS_API_TOKEN;
 
+    // TODO: Move this API functionality server-side - do some caching stuff
     fetch(
       `https://api.discogs.com/users/${userName}/inventory?token=${apiToken}`
     )
