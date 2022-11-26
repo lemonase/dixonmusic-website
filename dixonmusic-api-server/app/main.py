@@ -3,6 +3,8 @@ import json
 import os
 
 from fastapi import FastAPI
+from starlette.middleware import Middleware
+from starlette.middleware.cors import CORSMiddleware
 import requests
 from dotenv import load_dotenv
 
@@ -36,7 +38,26 @@ def get_primary_image(images):
     return images[0]
 
 
-app = FastAPI()
+origins = [
+    "http://localhost",
+    "https://localhost",
+    "http://localhost:5173/",
+    "http://dixonmusic.net",
+    "https://dixonmusic.net",
+]
+
+middleware = [
+    Middleware(
+        CORSMiddleware,
+        allow_origins=['*'],
+        allow_credentials=True,
+        allow_methods=['*'],
+        allow_headers=['*']
+    )
+]
+
+
+app = FastAPI(middleware=middleware)
 
 
 @app.get("/")
