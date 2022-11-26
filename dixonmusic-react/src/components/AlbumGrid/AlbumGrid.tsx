@@ -18,7 +18,8 @@ function AlbumGrid() {
 
   const fetchListings = () => {
     const userName = "dixonmusic";
-    const apiToken = import.meta.env.VITE_DISCOGS_API_TOKEN;
+    const apiToken = import.meta.env.VITE_DIXONMUSIC_API_TOKEN;
+    console.log(apiToken)
 
     // TODO: Move this API functionality server-side - do some caching stuff
     fetch(
