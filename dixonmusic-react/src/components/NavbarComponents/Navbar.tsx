@@ -54,16 +54,16 @@ const MainNavbar = () => {
             />
             <ExternalLinkButton
               href="https://www.cdandlp.com/seller/2/431937/dixonmusic.html"
-              variant="warning"
+              variant="success"
               buttonText="CD&LP"
               iconType="cdandlp"
             />
-            {/* <ExternalLinkButton
-              href="#"
+            <ExternalLinkButton
+              href="https://www.ebay.com/usr/damon"
               variant="warning"
               buttonText="Ebay"
               iconType="ebay"
-            /> */}
+            />
           </Nav>
         </Container>
       </Navbar>
