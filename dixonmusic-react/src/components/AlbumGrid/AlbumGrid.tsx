@@ -17,14 +17,7 @@ function AlbumGrid() {
   }, []);
 
   const fetchListings = () => {
-    const userName = "dixonmusic";
-    const apiToken = import.meta.env.VITE_DIXONMUSIC_API_TOKEN;
-    console.log(apiToken)
-
-    // TODO: Move this API functionality server-side - do some caching stuff
-    fetch(
-      `https://api.discogs.com/users/${userName}/inventory?token=${apiToken}`
-    )
+    fetch('https://api.dixonmusic.net/inventory')
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
