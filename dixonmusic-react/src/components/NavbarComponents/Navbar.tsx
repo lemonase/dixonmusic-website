@@ -1,15 +1,14 @@
-import React from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
 
 import { Outlet, Link } from "react-router-dom";
 
-import "./Navbar.css";
 import NavbarBrandLogo from "./NavbarBrandLogo";
 import BrandText from "./BrandText";
 import ExternalLinkButton from "./ExternalLinkButton";
+import "./Navbar.css";
+import InternalLinkButtons from "./InternalLinkButtons";
 
 const MainNavbar = () => {
   return (
@@ -24,13 +23,11 @@ const MainNavbar = () => {
         <Container>
           <Link to="/">
             <Navbar.Brand>
-              <NavbarBrandLogo />
+              {/* <NavbarBrandLogo /> */}
               <BrandText />
-              <NavbarBrandLogo />
             </Navbar.Brand>
           </Link>
-          <Link to="/about">About</Link>
-          <Link to="/shipping-info">Shipping Info</Link>
+          <InternalLinkButtons />
         </Container>
       </Navbar>
 
@@ -54,7 +51,7 @@ const MainNavbar = () => {
             />
             <ExternalLinkButton
               href="https://www.cdandlp.com/seller/2/431937/dixonmusic.html"
-              variant="success"
+              variant="secondary"
               buttonText="CD&LP"
               iconType="cdandlp"
             />

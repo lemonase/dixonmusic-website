@@ -1,4 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Faster+One&family=Manrope&family=Nabla&family=Urbanist:wght@900&family=Zilla+Slab+Highlight:wght@400;700&display=swap");
+/* **** */
+/* Main */
+/* **** */
+:root {
+  --main-brand-color: #3ce027;
+  --secondary-brand-color: #b2d436;
+}
 
 .body-heading {
   margin-top: 5%;
@@ -13,4 +19,31 @@
 .main-body-text {
   text-align: left;
   margin: 5%;
+}
+
+/* ***** */
+/* Fonts */
+/* ***** */
+@font-face {
+  font-family: "ManropeLight";
+  src: local("ManropeLight"), url("./fonts/Manrope-Light.ttf"),
+    format("truetype");
+}
+
+@font-face {
+  font-family: "ManropeMedium";
+  src: local("ManropeMedium"), url("./fonts/Manrope-Medium.ttf"),
+    format("truetype");
+}
+
+@font-face {
+  font-family: "ManropeBold";
+  src: local("ManropeBold"), url("./fonts/Manrope-Bold.ttf"),
+    format("truetype");
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: local("ManropeRegular"), url("./fonts/Manrope-Regular.ttf"),
+    format("truetype");
 }

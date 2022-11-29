@@ -1,53 +1,58 @@
-.primary-nav {
-  color: blue;
+.navbar {
+  font-family: "Manrope" sans-serif;
 }
-.primary-nav > .container {
-  justify-content: flex-start !important;
+
+.primary-nav>.container>.internal-links {
+  text-align: right;
 }
-.primary-nav > .container > a {
-  margin-left: 2%;
+
+.primary-nav>.container>.internal-links>a {
+  margin-left: 5%;
 }
 
 .brand-text {
   display: inline;
-  font-family: "Zilla Slab Highlight", cursive;
-  font-size: 2rem;
-  color: #38ec20;
+  font-size: 2.2rem;
+  color: black;
+  background-color: var(--main-brand-color);
+  padding: 7px;
+  border-radius: 5px;
 }
 
-.container > a {
-  font-family: "Manrope", sans-serif;
+.brand-text:hover {
+  background-color: var(--secondary-brand-color);
+}
+
+.container>a {
   color: rgba(255, 255, 255, 0.493);
   text-decoration: none;
 }
-.container > a:hover {
-  color: white;
+
+.container>a:hover {
+  color: var(--main-brand-color);
 }
 
 .second-nav {
-  font-family: "Manrope", sans-serif;
   font-style: bold;
   font-size: 1.5rem;
 }
+
 .nav-text {
-  font-family: "Zilla Slab Highlight", cursive;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: white;
 }
 
 .navbar-spacer {
   padding-top: 5px;
 
-  background: linear-gradient(
-    90deg,
-    #38ec20,
-    #13fff7,
-    #808eff,
-    #ef5aff,
-    #ffd423,
-    #ff5f23,
-    #ff26b4
-  );
+  background: linear-gradient(90deg,
+      #38ec20,
+      #13fff7,
+      #808eff,
+      #ef5aff,
+      #ffd423,
+      #ff5f23,
+      #ff26b4);
   background-size: 1200% 1200%;
 
   -webkit-animation: NavbarGradientAnimation 20s ease infinite;
@@ -59,31 +64,39 @@
   0% {
     background-position: 76% 0%;
   }
+
   50% {
     background-position: 25% 100%;
   }
+
   100% {
     background-position: 76% 0%;
   }
 }
+
 @-moz-keyframes NavbarGradientAnimation {
   0% {
     background-position: 76% 0%;
   }
+
   50% {
     background-position: 25% 100%;
   }
+
   100% {
     background-position: 76% 0%;
   }
 }
+
 @keyframes NavbarGradientAnimation {
   0% {
     background-position: 76% 0%;
   }
+
   50% {
     background-position: 25% 100%;
   }
+
   100% {
     background-position: 76% 0%;
   }
