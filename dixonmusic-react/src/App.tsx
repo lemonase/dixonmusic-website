@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+/* Pages */
 import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import ShippingInfo from "./pages/ShippingInfo";
 
-import Navbar from "./components/NavbarComponents/Navbar";
-// import About from "./components/About/About";
+/* Styling */
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./main.css";
 
 export default function App() {
   return (
@@ -20,6 +21,5 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    //   <About></About>
   );
 }
