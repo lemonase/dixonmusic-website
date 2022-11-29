@@ -47,3 +47,13 @@
   src: local("ManropeRegular"), url("./fonts/Manrope-Regular.ttf"),
     format("truetype");
 }
+
+@font-face {
+  font-family: "ZillaSlabHighlight";
+  src: url("./fonts/ZillaSlabHighlight-Regular.ttf");
+}
+
+@font-face {
+  font-family: "ZillaSlabHighlightBold";
+  src: url("./fonts/ZillaSlabHighlight-Bold.ttf");
+}

@@ -8,19 +8,19 @@
 
 .primary-nav>.container>.internal-links>a {
   margin-left: 5%;
+  font-size: 1.5rem;
 }
 
 .brand-text {
   display: inline;
-  font-size: 2.2rem;
-  color: black;
-  background-color: var(--main-brand-color);
-  padding: 7px;
-  border-radius: 5px;
+  font-family: "ZillaSlabHighlight";
+  font-size: 2.5rem;
+  color: var(--main-brand-color);
+  /* background-color: var(--main-brand-color); */
 }
 
 .brand-text:hover {
-  background-color: var(--secondary-brand-color);
+  color: var(--secondary-brand-color);
 }
 
 .container>a {
@@ -40,6 +40,10 @@
 .nav-text {
   font-size: 2rem;
   color: white;
+}
+
+.link-text>a>button {
+  font-size: 1.2rem;
 }
 
 .navbar-spacer {
