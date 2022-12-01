@@ -60,9 +60,19 @@ middleware = [
 app = FastAPI(middleware=middleware)
 
 
-@app.get("/")
+@app.get("/"):
+async def root():
+    return {"message": "Backend API for dixonmusic.net"}
+
+
+@app.get("/hello/")
 async def root():
     return {"message": "Hello World"}
+
+
+@app.get("/ping/"):
+async def ping():
+    return {"message": "pong"}
 
 
 @app.get("/inventory/")
