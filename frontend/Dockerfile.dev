@@ -1,0 +1,17 @@
+FROM node:16.18.1-alpine3.15
+
+EXPOSE 5173
+
+RUN mkdir -p /home/node/app
+
+WORKDIR /home/node/app
+
+COPY ./package.json .
+RUN npm install
+# not good, but it works
+RUN chmod 777 /home/node/app/node_modules
+
+COPY . .
+
+
+CMD npm run devhost
