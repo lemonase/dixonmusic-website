@@ -42,7 +42,14 @@ To build the production image run:
 docker image build --file Dockerfile --tag dixonmusic-frontend:prod .
 ```
 
-To run the production container run:
+To get the `dist` folder on the host run:
+
+```sh
+docker cp $(docker run -d dixonmusic-frontend:prod):/usr/share/nginx/html dist/
+```
+
+
+To run the production (nginx) container run:
 
 ```sh
 docker run -p 8080:80 dixonmusic-frontend:prod
