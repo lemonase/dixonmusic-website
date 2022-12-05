@@ -45,9 +45,9 @@ docker image build --file Dockerfile --tag dixonmusic-frontend:prod .
 To get the `dist` folder on the host run:
 
 ```sh
-docker cp $(docker run -d dixonmusic-frontend:prod):/usr/share/nginx/html dist/
+CID=$(docker run --rm -d dixonmusic-frontend:prod)
+docker cp $CID:/usr/share/nginx/html dist/ && docker stop $CID
 ```
-
 
 To run the production (nginx) container run:
 
