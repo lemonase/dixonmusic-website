@@ -40,8 +40,12 @@ function AlbumGrid() {
   if (isLoading) {
     return (
       <Container className="loading-spinner">
-        <div>Loading Album Images... </div>
-        <Spinner animation="grow" />
+        <Container>
+          <h4>Loading Album Images... </h4>
+        </Container>
+        <Container>
+          <Spinner variant="warning" animation="grow" style={{ width: "3rem", height: "3rem" }} />
+        </Container>
       </Container>
     );
   }

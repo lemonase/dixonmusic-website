@@ -1,4 +1,5 @@
 import { Container } from "react-bootstrap";
+import Badge from "react-bootstrap/Badge";
 
 function ShippingInfo() {
   return (
@@ -7,9 +8,7 @@ function ShippingInfo() {
       <div className="main-body-text">
 
         <h4 style={{ textAlign: "center" }}>
-          🌟
-          Discounts for larger orders (over 10 items)
-          🌟
+          <Badge bg="success">Discounts</Badge> on larger orders (over 10 items)
         </h4>
 
         <br></br>
