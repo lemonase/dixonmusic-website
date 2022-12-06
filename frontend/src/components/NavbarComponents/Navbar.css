@@ -23,13 +23,13 @@
   color: var(--secondary-brand-color);
 }
 
-.container>a {
+.navbar .container>a {
   color: rgba(255, 255, 255, 0.493);
   text-decoration: none;
 }
 
-.container>a:hover {
-  color: var(--main-brand-color);
+.navbar .container>a:hover {
+  color: var(--secondary-brand-color);
 }
 
 .second-nav {

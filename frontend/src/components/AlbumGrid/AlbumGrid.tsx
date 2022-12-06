@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import { Stack } from "react-bootstrap";
 
 import AlbumCard from "./AlbumCard";
+import AlbumListing from "./AlbumListing";
 
 import "./AlbumGrid.css";
 import { SiJest } from "react-icons/si";
@@ -35,7 +37,7 @@ function AlbumGrid() {
   }, []);
 
   const fetchListings = () => {
-    fetch('https://api.dixonmusic.net/inventory')
+    fetch('https://api.dixonmusic.net/inventory', { cache: "force-cache" })
       .then((res) => res.json())
       .then((data) => {
         setLoading(false);
@@ -43,9 +45,9 @@ function AlbumGrid() {
       });
   };
 
-  const listingsItems = listings.map((listing) => (
+  const cardItems = listings.map((listing) => (
     <AlbumCard
-      imageSrc={listing["release"]["thumbnail"]}
+      imageSrc={listing["release"]["images"][0]["uri"]}
       cardLink={listing["uri"]}
       cardDescription={listing["release"]["description"]}
       loading={isLoading}
@@ -54,12 +56,31 @@ function AlbumGrid() {
     />
   ));
 
+  const rowItems = listings.map((listing) => (
+    <AlbumListing
+      listing={listing}
+    />
+  ));
+
   let listingView;
   if (viewState.view === "grid") {
-    listingView = (<><h1>Grid </h1> <Row>{listingsItems}</Row></>)
+    listingView = (<><Row>{cardItems}</Row></>)
   }
   if (viewState.view === "list") {
-    listingView = (<><h1>List </h1> <Stack>{listingsItems}</Stack></>)
+    listingView = (
+      <>
+        <Row className="listings-heading">
+          <Col>Album Image</Col>
+          <Col>Description</Col>
+          <Col>Sleeve Condition</Col>
+          <Col>Condition</Col>
+          <Col>Status</Col>
+          <Col>Have/Want</Col>
+          <Col>Price (ex. Shipping)</Col>
+        </Row>
+
+        {rowItems}
+      </>)
   }
 
   // TODO: Improve loading state for this component
@@ -76,35 +97,38 @@ function AlbumGrid() {
     );
   }
 
-
   return (
     <Container className="album-container">
-      <Row>
-        <ButtonGroup>
-          <ToggleButton key="0"
-            id="radio-0"
-            name="radio"
-            type="radio"
-            value="grid"
-            onChange={handleRadio}
-            style={{ padding: "5px" }}
-            checked={viewState.view === "grid"}
-          >
-            <BsFillGrid3X3GapFill />
-          </ToggleButton>
+      <ButtonGroup className="view-button-group" style={{ position: "relative" }}>
+        <ToggleButton
+          key="0"
+          id="radio-0"
+          name="radio"
+          type="radio"
+          value="grid"
+          onChange={handleRadio}
+          checked={viewState.view === "grid"}
+          variant="secondary"
+          size="lg"
+        >
+          <BsFillGrid3X3GapFill />
+        </ToggleButton>
 
-          <ToggleButton key="1"
-            id="radio-1"
-            name="radio"
-            type="radio"
-            value="list"
-            onChange={handleRadio}
-            checked={viewState.view === "list"}
-            style={{ padding: "5px" }}>
-            <HiViewList />
-          </ToggleButton>
-        </ButtonGroup>
-      </Row>
+        <ToggleButton
+          key="1"
+          id="radio-1"
+          name="radio"
+          type="radio"
+          value="list"
+          onChange={handleRadio}
+          checked={viewState.view === "list"}
+          variant="secondary"
+          size="lg"
+        >
+          <HiViewList />
+        </ToggleButton>
+      </ButtonGroup>
+
       {listingView}
     </Container>
   );

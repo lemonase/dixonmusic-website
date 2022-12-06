@@ -2,8 +2,17 @@
 /* Main */
 /* **** */
 :root {
-  --main-brand-color: #3ce027;
-  --secondary-brand-color: #b2d436;
+  --main-brand-color: #40b331;
+  --secondary-brand-color: #3ce027;
+  --tertiary-brand-color: #29a718;
+}
+
+::selection {
+  background: var(--secondary-brand-color)
+}
+
+::-moz-selection {
+  background: var(--secondary-brand-color)
 }
 
 .body-heading {

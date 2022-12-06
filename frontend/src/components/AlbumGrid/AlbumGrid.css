@@ -11,3 +11,49 @@
   margin: 0 auto;
   justify-content: center;
 }
+
+.listings-heading {
+  background-color: var(--secondary-brand-color);
+  border-radius: 5%;
+  padding: .5%;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.view-button-group {
+  position: absolute !important;
+  right: 10px;
+  top: 150px;
+}
+
+.album-container a {
+  color: black;
+  text-decoration: none;
+}
+
+.album-container a .row {
+  border: 2px solid black;
+}
+
+.album-container a .row:hover {
+  color: black;
+  background-color: var(--tertiary-brand-color);
+}
+
+@media (min-width: 996px) and (max-width: 1200px) {
+  .view-button-group {
+    top: 190px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 995px) {
+  .view-button-group {
+    top: 240px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 767px) {
+  .view-button-group {
+    top: 300px;
+  }
+}
