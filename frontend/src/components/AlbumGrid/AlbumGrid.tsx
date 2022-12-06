@@ -47,6 +47,7 @@ function AlbumGrid() {
 
   const cardItems = listings.map((listing) => (
     <AlbumCard
+      key={listing["id"]}
       imageSrc={listing["release"]["images"][0]["uri"]}
       cardLink={listing["uri"]}
       cardDescription={listing["release"]["description"]}
@@ -58,6 +59,7 @@ function AlbumGrid() {
 
   const rowItems = listings.map((listing) => (
     <AlbumListing
+      key={listing["id"]}
       listing={listing}
     />
   ));
