@@ -3,13 +3,12 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
-import { Stack } from "react-bootstrap";
 
 import AlbumCard from "./AlbumCard";
 import AlbumListing from "./AlbumListing";
+import Pagination from "../Pagination/Pagination";
 
 import "./AlbumGrid.css";
-import { SiJest } from "react-icons/si";
 
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -19,6 +18,7 @@ import { HiViewList } from "react-icons/hi";
 
 function AlbumGrid() {
   const [listings, setListings] = useState([]);
+  const [pagination, setPagination] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [viewState, setViewState] = useState({ view: "grid" })
 
@@ -42,6 +42,7 @@ function AlbumGrid() {
       .then((data) => {
         setLoading(false);
         setListings(data.listings);
+        setPagination(data.pagination);
       });
   };
 
@@ -63,6 +64,7 @@ function AlbumGrid() {
       listing={listing}
     />
   ));
+
 
   let listingView;
   if (viewState.view === "grid") {
@@ -101,6 +103,7 @@ function AlbumGrid() {
 
   return (
     <Container className="album-container">
+      <Pagination pagination={pagination} />
       <ButtonGroup className="view-button-group" style={{ position: "relative" }}>
         <ToggleButton
           key="0"
@@ -132,6 +135,7 @@ function AlbumGrid() {
       </ButtonGroup>
 
       {listingView}
+
     </Container>
   );
 }
