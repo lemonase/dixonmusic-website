@@ -5,10 +5,15 @@ import os
 from fastapi import FastAPI
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
-import requests
+
 from dotenv import load_dotenv
+import requests
+import requests_cache
 
 load_dotenv()
+
+
+requests_cache.install_cache('discogs_cache', backend='sqlite', expire_after=300)
 
 
 def fetch_inventory(userName="dixonmusic",
