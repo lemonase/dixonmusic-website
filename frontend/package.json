@@ -1,7 +1,18 @@
 {
   "name": "dixonmusic-react",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Front end website for Dixon Music",
+  "homepage": "https://dixonmusic.net",
+  "license": "SEE LICENSE FILE",
+  "keywords": [
+    "records",
+    "react",
+    "ecommerce",
+    "shop",
+    "spa",
+    "frontend"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
