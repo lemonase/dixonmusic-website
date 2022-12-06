@@ -2,15 +2,33 @@ import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
+import { Stack } from "react-bootstrap";
 
 import AlbumCard from "./AlbumCard";
 
 import "./AlbumGrid.css";
 import { SiJest } from "react-icons/si";
 
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import { BsFillGrid3X3GapFill } from "react-icons/bs";
+import { HiViewList } from "react-icons/hi";
+
+
 function AlbumGrid() {
   const [listings, setListings] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [viewState, setViewState] = useState({ view: "grid" })
+
+  const handleRadio = e => {
+    e.persist();
+    // console.log(e.target.value);
+
+    setViewState(prevState => ({
+      ...prevState,
+      view: e.target.value
+    }))
+  }
 
   useEffect(() => {
     fetchListings();
@@ -36,6 +54,14 @@ function AlbumGrid() {
     />
   ));
 
+  let listingView;
+  if (viewState.view === "grid") {
+    listingView = (<><h1>Grid </h1> <Row>{listingsItems}</Row></>)
+  }
+  if (viewState.view === "list") {
+    listingView = (<><h1>List </h1> <Stack>{listingsItems}</Stack></>)
+  }
+
   // TODO: Improve loading state for this component
   if (isLoading) {
     return (
@@ -50,9 +76,36 @@ function AlbumGrid() {
     );
   }
 
+
   return (
     <Container className="album-container">
-      <Row>{listingsItems}</Row>
+      <Row>
+        <ButtonGroup>
+          <ToggleButton key="0"
+            id="radio-0"
+            name="radio"
+            type="radio"
+            value="grid"
+            onChange={handleRadio}
+            style={{ padding: "5px" }}
+            checked={viewState.view === "grid"}
+          >
+            <BsFillGrid3X3GapFill />
+          </ToggleButton>
+
+          <ToggleButton key="1"
+            id="radio-1"
+            name="radio"
+            type="radio"
+            value="list"
+            onChange={handleRadio}
+            checked={viewState.view === "list"}
+            style={{ padding: "5px" }}>
+            <HiViewList />
+          </ToggleButton>
+        </ButtonGroup>
+      </Row>
+      {listingView}
     </Container>
   );
 }

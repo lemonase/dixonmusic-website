@@ -1,13 +1,17 @@
 import React from "react";
 
+import { useState } from "react";
+import { Container } from "react-bootstrap";
 import "./HeroSection.css";
 
 function HeroSection() {
+
+
   return (
     <>
-      <div className="hero-heading-section">
-        <h2>Looking for Records, Vinyls, CDs?</h2>
-      </div>
+      <Container style={{ textAlign: "center" }}>
+        <h1>Looking for Records, Vinyls, CDs?</h1>
+      </Container>
     </>
   );
 }
