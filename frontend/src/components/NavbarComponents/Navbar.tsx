@@ -44,18 +44,6 @@ const MainNavbar = () => {
               iconType="discogs"
             />
             <ExternalLinkButton
-              href="https://www.musicstack.com/seller/dixonmusic"
-              variant="info"
-              buttonText="MusicStack"
-              iconType="musicstack"
-            />
-            <ExternalLinkButton
-              href="https://www.cdandlp.com/seller/2/431937/dixonmusic.html"
-              variant="secondary"
-              buttonText="CD&LP"
-              iconType="cdandlp"
-            />
-            <ExternalLinkButton
               href="https://www.ebay.com/usr/damon"
               variant="warning"
               buttonText="Ebay"
