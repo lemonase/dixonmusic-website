@@ -27,12 +27,13 @@ function AlbumGrid() {
 
   const listingsItems = listings.map((listing) => (
     <AlbumCard
-      imageSrc={listing["release"]["thumbnail"]}
+      key={listing["id"]}
+      imageSrc={listing["release"]["images"][0]["uri"]}
       cardLink={listing["uri"]}
       cardDescription={listing["release"]["description"]}
       loading={isLoading}
-      width="150px"
-      height="150px"
+      width="250px"
+      height="250px"
     />
   ));
 
