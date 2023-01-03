@@ -1,5 +1,4 @@
 from typing import Union
-import json
 import os
 
 from fastapi import FastAPI
@@ -12,19 +11,17 @@ import requests_cache
 
 load_dotenv()
 
-
 requests_cache.install_cache('discogs_cache', backend='sqlite', expire_after=300)
 
-
-def fetch_inventory(userName="dixonmusic",
-                    apiToken=os.environ.get("DIXONMUSIC_API_TOKEN"),
+def fetch_inventory(user_name="dixonmusic",
+                    api_token=os.environ.get("DIXONMUSIC_API_TOKEN"),
                     page=1,
                     per_page=100
                     ):
-    api_url = f"https://api.discogs.com/users/{userName}/inventory"
+    api_url = f"https://api.discogs.com/users/{user_name}/inventory"
 
     query_params = {
-        "token": os.environ.get("DIXONMUSIC_API_TOKEN"),
+        "token": api_token,
         "page": page,
         "per_page": per_page
     }
@@ -71,7 +68,7 @@ async def root():
 
 
 @app.get("/hello/")
-async def root():
+async def hello():
     return {"message": "Hello World"}
 
 
