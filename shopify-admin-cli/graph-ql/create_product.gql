@@ -1,0 +1,162 @@
+mutation productCreate($input: ProductInput!) {
+  productCreate(input: $input) {
+    product {
+      # Product fields
+    }
+    shop {
+      # Shop fields
+    }
+    userErrors {
+      field
+      message
+    }
+  }
+}
+
+{
+  "input": {
+    "bodyHtml": "",
+    "collectionsToJoin": [
+      ""
+    ],
+    "collectionsToLeave": [
+      ""
+    ],
+    "customProductType": "",
+    "descriptionHtml": "",
+    "giftCard": true,
+    "giftCardTemplateSuffix": "",
+    "handle": "",
+    "id": "",
+    "images": [
+      {
+        "altText": "",
+        "id": "",
+        "src": ""
+      }
+    ],
+    "metafields": [
+      {
+        "description": "",
+        "id": "",
+        "key": "",
+        "namespace": "",
+        "type": "",
+        "value": ""
+      }
+    ],
+    "options": [
+      ""
+    ],
+    "privateMetafields": [
+      {
+        "key": "",
+        "namespace": "",
+        "owner": "",
+        "valueInput": {
+          "value": "",
+          "valueType": ""
+        }
+      }
+    ],
+    "productCategory": {
+      "productTaxonomyNodeId": ""
+    },
+    "productPublications": [
+      {
+        "channelHandle": "",
+        "channelId": "",
+        "publicationId": "",
+        "publishDate": ""
+      }
+    ],
+    "productType": "",
+    "publications": [
+      {
+        "channelHandle": "",
+        "channelId": "",
+        "publicationId": "",
+        "publishDate": ""
+      }
+    ],
+    "publishDate": "",
+    "publishOn": "",
+    "published": true,
+    "publishedAt": "",
+    "redirectNewHandle": true,
+    "requiresSellingPlan": true,
+    "seo": {
+      "description": "",
+      "title": ""
+    },
+    "standardizedProductType": {
+      "productTaxonomyNodeId": ""
+    },
+    "status": "",
+    "tags": [
+      ""
+    ],
+    "templateSuffix": "",
+    "title": "",
+    "variants": [
+      {
+        "barcode": "",
+        "compareAtPrice": "",
+        "fulfillmentServiceId": "",
+        "harmonizedSystemCode": "",
+        "id": "",
+        "imageId": "",
+        "imageSrc": "",
+        "inventoryItem": {
+          "cost": "",
+          "tracked": true
+        },
+        "inventoryManagement": "",
+        "inventoryPolicy": "",
+        "inventoryQuantities": {
+          "availableQuantity": 1,
+          "locationId": ""
+        },
+        "mediaSrc": [
+          ""
+        ],
+        "metafields": {
+          "description": "",
+          "id": "",
+          "key": "",
+          "namespace": "",
+          "type": "",
+          "value": ""
+        },
+        "options": [
+          ""
+        ],
+        "position": 1,
+        "price": "",
+        "privateMetafields": {
+          "key": "",
+          "namespace": "",
+          "owner": "",
+          "valueInput": {
+            "value": "",
+            "valueType": ""
+          }
+        },
+        "productId": "",
+        "requiresShipping": true,
+        "sku": "",
+        "taxCode": "",
+        "taxable": true,
+        "title": "",
+        "weight": 1.1,
+        "weightUnit": ""
+      }
+    ],
+    "vendor": ""
+  },
+  "media": {
+    "alt": "",
+    "mediaContentType": "",
+    "originalSource": ""
+  }
+}
