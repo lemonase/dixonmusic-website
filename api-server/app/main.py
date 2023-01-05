@@ -11,7 +11,12 @@ import requests_cache
 
 load_dotenv()
 
-requests_cache.install_cache('discogs_cache', backend='sqlite', expire_after=3600)
+requests_cache.install_cache(
+    'discogs_cache', backend='sqlite', expire_after=3600)
+
+# Discogs API docs:
+# https://www.discogs.com/developers
+
 
 def fetch_inventory(user_name="dixonmusic",
                     api_token=os.environ.get("DIXONMUSIC_API_TOKEN"),
