@@ -1,0 +1,15 @@
+mutation {
+  bulkOperationRunMutation(
+    mutation: "mutation call($input: ProductInput!) { productCreate(input: $input) { product {id title variants(first: 10) {edges {node {id title inventoryQuantity }}}} userErrors { message field } } }",
+    stagedUploadPath: "tmp/69742002470/bulk/618d63ae-ef4e-4961-a607-7885fef7f9a1/gql_products_input") {
+    bulkOperation {
+      id
+      url
+      status
+    }
+    userErrors {
+      message
+      field
+    }
+  }
+}

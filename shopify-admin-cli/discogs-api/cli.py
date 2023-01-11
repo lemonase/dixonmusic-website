@@ -38,7 +38,9 @@ def load_inventory(json_path):
         return d
 
 
-# fetch_inventory()
+if not os.path.isfile("./res.json"):
+    fetch_inventory()
+
 
 d = load_inventory("./res.json")
 listings = d["listings"]

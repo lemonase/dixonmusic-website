@@ -1,0 +1,62 @@
+{
+  "data": {
+    "stagedUploadsCreate": {
+      "userErrors": [],
+      "stagedTargets": [
+        {
+          "url": "https://shopify-staged-uploads.storage.googleapis.com/",
+          "resourceUrl": null,
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "text/jsonl"
+            },
+            {
+              "name": "success_action_status",
+              "value": "201"
+            },
+            {
+              "name": "acl",
+              "value": "private"
+            },
+            {
+              "name": "key",
+              "value": "tmp/69742002470/bulk/618d63ae-ef4e-4961-a607-7885fef7f9a1/gql_products_input"
+            },
+            {
+              "name": "x-goog-date",
+              "value": "20230111T194728Z"
+            },
+            {
+              "name": "x-goog-credential",
+              "value": "merchant-assets@shopify-tiers.iam.gserviceaccount.com/20230111/auto/storage/goog4_request"
+            },
+            {
+              "name": "x-goog-algorithm",
+              "value": "GOOG4-RSA-SHA256"
+            },
+            {
+              "name": "x-goog-signature",
+              "value": "55c18c43a648b5c4a3efafd24b94d05b746209d2d79a388e73006b76550bce19162cb80b83a598232e95c0a0a24d83f042d5a86ad8b6db50181db888a1452d5dbca6343aa4d199ca3c50717ddaba77b8b57740e613e1b69e21c266c399373a4f9e23965340b03cf0bffce7528dfb84bd31f4dbefeeb09a8979277e2ece57696b36905887cecad8dc1dae351f53ccc58a23cf2b0d339cfe02f377bf05bc2b7593cdf0ed18c7fb2ab463e9bc8534a0bc98252f9e3a39cd14f5452e7493659d6f698e4f57ea063148ec9d7e1ace1c0ada1060e2582e58fc4cea176c67a98c4891c20d54148efc7b0971413022025be9f9fcee9b41e9f39e92d886aae2ce120a9db2"
+            },
+            {
+              "name": "policy",
+              "value": "eyJjb25kaXRpb25zIjpbeyJDb250ZW50LVR5cGUiOiJ0ZXh0XC9qc29ubCJ9LHsic3VjY2Vzc19hY3Rpb25fc3RhdHVzIjoiMjAxIn0seyJhY2wiOiJwcml2YXRlIn0sWyJjb250ZW50LWxlbmd0aC1yYW5nZSIsMSwyMDk3MTUyMF0seyJidWNrZXQiOiJzaG9waWZ5LXN0YWdlZC11cGxvYWRzIn0seyJrZXkiOiJ0bXBcLzY5NzQyMDAyNDcwXC9idWxrXC82MThkNjNhZS1lZjRlLTQ5NjEtYTYwNy03ODg1ZmVmN2Y5YTFcL2dxbF9wcm9kdWN0c19pbnB1dCJ9LHsieC1nb29nLWRhdGUiOiIyMDIzMDExMVQxOTQ3MjhaIn0seyJ4LWdvb2ctY3JlZGVudGlhbCI6Im1lcmNoYW50LWFzc2V0c0BzaG9waWZ5LXRpZXJzLmlhbS5nc2VydmljZWFjY291bnQuY29tXC8yMDIzMDExMVwvYXV0b1wvc3RvcmFnZVwvZ29vZzRfcmVxdWVzdCJ9LHsieC1nb29nLWFsZ29yaXRobSI6IkdPT0c0LVJTQS1TSEEyNTYifV0sImV4cGlyYXRpb24iOiIyMDIzLTAxLTEyVDE5OjQ3OjI4WiJ9"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "cost": {
+      "requestedQueryCost": 11,
+      "actualQueryCost": 11,
+      "throttleStatus": {
+        "maximumAvailable": 1000,
+        "currentlyAvailable": 989,
+        "restoreRate": 50
+      }
+    }
+  }
+}
