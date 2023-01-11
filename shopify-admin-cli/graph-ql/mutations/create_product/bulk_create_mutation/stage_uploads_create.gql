@@ -1,0 +1,23 @@
+mutation {
+  stagedUploadsCreate(
+    input: {
+      resource: BULK_MUTATION_VARIABLES
+      filename: "gql_products_input"
+      mimeType: "text/jsonl"
+      httpMethod: POST
+    }
+  ) {
+    userErrors {
+      field
+      message
+    }
+    stagedTargets {
+      url
+      resourceUrl
+      parameters {
+        name
+        value
+      }
+    }
+  }
+}
