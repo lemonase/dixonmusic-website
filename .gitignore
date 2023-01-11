@@ -187,4 +187,6 @@ cython_debug/
 deploy.sh
 *cache*
 
-res.json
+
+*res.json
+*gql_product_input.jsonl
