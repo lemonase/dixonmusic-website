@@ -20,7 +20,7 @@ function About() {
             Where is Dixon Music?
           </h3>
           <p>
-            We are located directly out of Summerville, SC and have been in business for 30+ years.
+            We are located directly out of the state of South Carolina in the United States and have been in business for 40+ years.
           </p>
         </Container>
 
