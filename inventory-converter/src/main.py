@@ -9,15 +9,12 @@ def do_shopify():
     #     secret=os.environ.get("SHOPIFY_SECRET_API_KEY")
     # )
 
+    # shopify API setup
     shop_url = "dixon-music.myshopify.com"
     api_version = "2023-01"
     access_token = os.environ.get("SHOPIFY_ADMIN_ACCESS_TOKEN")
-
     session = shopify.Session(shop_url, api_version, access_token)
     shopify.ShopifyResource.activate_session(session)
-
-    # shop = shopify.Shop.current()
-    # product = shop.find()
 
     print(shopify.GraphQL().execute("{ shop { name id } }"))
 
@@ -25,7 +22,8 @@ def do_shopify():
 def do_discogs():
     import discogs_client
 
-    d = discogs_client.Client("Inventory Fetcher/0.1", user_token=os.environ.get("DIXONMUSIC_API_TOKEN"))
+    d = discogs_client.Client("Inventory Fetcher/0.1",
+                              user_token=os.environ.get("DIXONMUSIC_API_TOKEN"))
 
     results = d.search('Stockholm By Night', type='release')
     breakpoint()
