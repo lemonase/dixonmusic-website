@@ -1,0 +1,17 @@
+{
+  products(first: 3) {
+    edges {
+      node {
+        id
+        title
+        handle
+        resourcePublicationOnCurrentPublication {
+          publication {
+            name
+            id
+          }
+        }
+      }
+    }
+  }
+}
