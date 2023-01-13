@@ -10,11 +10,11 @@ does not have to fetch directly from the discogs API on every single page load.
 Building docker image:
 
 ```sh
-docker build -t dixonmusic-api .
+docker build -t discogs-api-proxy .
 ```
 
 Running docker image
 
 ```sh
-docker run -d -p 8033:8033 --name dixonmusic-api  dixonmusic-api
+docker run -d -p 8033:8033 discogs-api-proxy 
 ```
