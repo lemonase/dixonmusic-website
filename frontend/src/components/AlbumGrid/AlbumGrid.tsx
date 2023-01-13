@@ -26,15 +26,16 @@ function AlbumGrid() {
   };
 
   const listingsItems = listings.map((listing) => (
-    <AlbumCard
-      key={listing["id"]}
-      imageSrc={listing["release"]["images"][0]["uri"]}
-      cardLink={listing["uri"]}
-      cardDescription={listing["release"]["description"]}
-      loading={isLoading}
-      width="250px"
-      height="250px"
-    />
+    listing["release"]["images"][0] !== undefined ?
+      <AlbumCard
+        key={listing["id"]}
+        imageSrc={listing["release"]["images"][0]["uri"]}
+        cardLink={listing["uri"]}
+        cardDescription={listing["release"]["description"]}
+        loading={isLoading}
+        width="250px"
+        height="250px"
+      /> : null
   ));
 
   // TODO: Improve loading state for this component
