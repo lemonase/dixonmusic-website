@@ -37,10 +37,16 @@ mkdir -p discogs-api/data
 
 ### Running Steps
 
-1. Run python script `python discogs-api/convert_inventory.py ./discogs-api/data/ ./gql_data/gql_product_input.jsonl` that will output a jsonl file with all Discogs listings.
+1. Run python script `python src/main.py ./discogs-api/data/ ./gql_data/gql_product_input.jsonl` that will output a jsonl file with all Discogs listings.
+
 1. Run the shell script that prepares Shopify's API for storage of your variables. We will need to save the response of this request for our next request.
 `./graph-ql/gql.sh ./graph-ql/mutations/bulk_create/gql/stage_uploads_create.gql > ./graph-ql/mutations/bulk_create/data/stageUploadsRes.json`
 1. Create a script called `./graph-ql/upload_jsonl.sh` to invoke curl according to [this POST request](https://shopify.dev/api/usage/bulk-operations/imports#upload-the-jsonl-file)
 using the reponse data you just saved in `./graph-ql/mutations/bulk_create/data/stageUploadsRes.json`
 1. Check that the bulk upload job has been created using
 `./graph-ql/gql.sh ./graph-ql/queries/check_bulk_op_status.gql` and `./graph-ql/gql.sh ./graph-ql/queries/check_bulk_op_count.gql`
+
+## TODO
+
+- [] Simplify -- Move the running steps into the script to make it less manual work and typing
+- [] Add DB for persistent storage instead of plain JSON files - this will help with granularity for updating and deleting data
