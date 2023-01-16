@@ -1,9 +1,30 @@
-import shopify
 import binascii
 import os
 from pathlib import Path
 from pprint import pprint
 import json
+
+import requests
+import shopify
+
+
+def pprint_json(json_input):
+    print(json.dumps(json.loads(json_input), indent=2))
+
+
+def shopify_exec_gql(gql_path, gql_vars):
+    gql_content = gql_path.read_text()
+
+    print(f"Executing file: {gql_path}")
+    print(f"GraphQL Content:\n {gql_content}")
+    print(f"GraphQL Variables: {gql_vars}")
+    result = shopify.GraphQL().execute(query=gql_content, variables=gql_vars)
+    print()
+    print("-"*30)
+
+    print("GraphQL Response:")
+    pprint_json(result)
+    return result
 
 
 def do_shopify():
@@ -19,16 +40,17 @@ def do_shopify():
     session = shopify.Session(shop_url, api_version, access_token)
     shopify.ShopifyResource.activate_session(session)
 
-    gql_dir = Path('.') / 'gql'
-    gql_first_three= Path(gql_dir / 'queries' / 'first-three.graphql').read_text()
-    gql_stage_uploads_create = Path(gql_dir / 'mutations' / 'stage_uploads_create.gql')
+    gql_dir = Path('.') / 'src/gql'
 
-    gql_doc = gql_first_three
+    gql_first_three = Path(gql_dir /
+                           'queries' /
+                           'first_three.gql')
 
-    # print(shopify.GraphQL().execute("{ shop { name id } }"))
-    result = shopify.GraphQL().execute( query=gql_doc, variables={})
-    result_json = json.loads(result)
-    print(json.dumps(result_json, indent=2))
+    gql_stage_uploads_create = Path(gql_dir /
+                                    'mutations' /
+                                    'stage_uploads_create.gql')
+
+    shopify_exec_gql(gql_first_three, {})
 
 
 def do_discogs():
