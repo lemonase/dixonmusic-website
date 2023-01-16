@@ -21,28 +21,32 @@ def fetch_inventory(data_directory,
                     ):
     api_url = f"https://api.discogs.com/users/{user_name}/inventory"
 
-    # make first request to get pagination data
-    query_params = {
-        "token": api_token,
-        "page": page,
-        "per_page": per_page
-    }
-    data = requests.get(api_url, params=query_params).json()
-    next_url = data["pagination"]["urls"]["next"]
-    cur_page = data["pagination"]["page"]
-    last_url = data["pagination"]["urls"]["last"]
+    if not os.path.isfile(os.path.join(data_directory, "1_res.json")):
+        # make first request to get pagination data
+        query_params = {
+            "token": api_token,
+            "page": page,
+            "per_page": per_page
+        }
+        data = requests.get(api_url, params=query_params).json()
+        next_url = data["pagination"]["urls"]["next"]
+        cur_page = data["pagination"]["page"]
+        last_url = data["pagination"]["urls"]["last"]
 
-    # write out json pages to files
-    while write_inventory_file(data_directory, cur_page, data):
-        data = requests.get(next_url).json()
-        if next_url is not last_url:
-            next_url = data["pagination"]["urls"]["next"]
-            cur_page = data["pagination"]["page"]
+        # write out json pages to files
+        while write_inventory_file(data_directory, cur_page, data):
+            data = requests.get(next_url).json()
+            if next_url is not last_url:
+                try:
+                    next_url = data["pagination"]["urls"]["next"]
+                except KeyError as e:
+                    break
+                cur_page = data["pagination"]["page"]
 
-    # write out last page
-    data = requests.get(last_url).json()
-    cur_page = data["pagination"]["page"]
-    write_inventory_file(data_directory, cur_page, data)
+        # write out last page
+        data = requests.get(last_url).json()
+        cur_page = data["pagination"]["page"]
+        write_inventory_file(data_directory, cur_page, data)
 
 
 def write_inventory_file(data_directory, cur_page, data):
@@ -74,14 +78,19 @@ def join_listings_inventory(data_directory):
         return
 
     for file in sorted(os.listdir(data_directory)):
+        # print(f"joining {file}")
         if file == all_listings_filename:
             break
         with open(os.path.join(data_directory, file), "r") as f:
             data = json.load(f)
-            all_listings.append(data["listings"])
+            all_listings.extend(data["listings"])
+
+    output_json = {
+        "listings": all_listings
+    }
 
     with open(os.path.join(data_directory, all_listings_filename), "w") as f:
-        json.dump(all_listings, f)
+        json.dump(output_json, f)
 
 
 def write_shopify_jsonl_file(listings, filename):
@@ -133,7 +142,7 @@ def main():
         data_directory = sys.argv[1]
         jsonl_filename = sys.argv[2]
     except:
-        print("Please supply 2 arguments.\n\nThe first arg is an output directory for all the (JSON) inventory data from Discogs.\n\nThe second arg is a filename for the Shopify jsonl bulk file that can be uploaded.\n\nEx: `python convert_inventory.py ./discogs-api/data/ ./graph-ql/mutations/bulk_create/data/gql_product_input.jsonl`")
+        print("Please supply 2 arguments.\n\nThe first arg is an output directory for all the (JSON) inventory data from Discogs.\n\nThe second arg is a filename for the Shopify jsonl bulk file that can be uploaded.\n\nEx: `python convert_inventory.py ./discogs-api/data/ ./gql_data/gql_product_input.jsonl`")
         sys.exit(1)
 
     # remove output file - as we open it in append mode later
@@ -143,10 +152,8 @@ def main():
     fetch_inventory(data_directory)
     join_listings_inventory(data_directory)
 
-    # TODO: test this and make work with all_listings file
-    # get json data from an inventory file
-    # data = load_inventory_json(res_filename)
-    # write_shopify_jsonl_file(data["listings"], jsonl_filename)
+    data = load_inventory_json(os.path.join(data_directory, "all_listings.json"))
+    write_shopify_jsonl_file(data["listings"], jsonl_filename)
 
 
 main()
