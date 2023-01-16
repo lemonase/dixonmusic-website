@@ -1,1 +1,1 @@
-curl -sL localhost:8033/inventory
+curl -sL localhost:8033/inventory > /dev/null
