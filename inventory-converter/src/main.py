@@ -16,6 +16,7 @@ def fetch_discogs_inventory(data_directory,
                             ):
     api_url = f"https://api.discogs.com/users/{user_name}/inventory"
 
+    # do not re-fetch files
     if not os.path.isfile(os.path.join(data_directory, "1_res.json")):
         # make first request to get pagination data
         query_params = {
@@ -43,6 +44,9 @@ def fetch_discogs_inventory(data_directory,
         data = requests.get(last_url).json()
         cur_page = data["pagination"]["page"]
         write_inventory_file(data_directory, cur_page, data)
+
+    # merge all listing pages into one file
+    join_discogs_listings(data_directory, "all_listings.json")
 
 
 def write_inventory_file(data_directory, cur_page, data):
@@ -151,36 +155,27 @@ def post_shopify_jsonl_data_and_run_mutate(gql_res, jsonl_filename):
         post_params[i["name"]] = (None, i["value"])
     post_params["file"] = open(jsonl_filename, 'rb')
 
-    # files = {
-    #     'key': (None, post_params["key"]),
-    #     'x-goog-credential': (None, post_params['x-goog-credential']),
-    #     'x-goog-algorithm': (None, post_params['x-goog-algorithm']),
-    #     'x-goog-date': (None, post_params['x-goog-date']),
-    #     'x-goog-signature': (None, post_params['x-goog-signature']),
-    #     'policy': (None, post_params['policy']),
-    #     'acl': (None, post_params['acl']),
-    #     'Content-Type': (None, post_params['Content-Type']),
-    #     'success_action_status': (None, post_params['success_action_status']),
-    #     'file': open(jsonl_filename, 'rb'),
-    # }
+    res = requests.post(stage_url, files=post_params, headers={'User-Agent': 'curl/7.81.0'})
+    res.raise_for_status()
+    print("Shopify:: POST Request with Inventory Successful")
 
-    res = requests.post(stage_url, files=files, headers={'User-Agent': 'curl/7.81.0'})
-
-    
     bulk_mut_vars = {
         "mutation": "mutation call($input: ProductInput!) { productCreate(input: $input) { product {id title variants(first: 10) {edges {node {id title inventoryQuantity }}}} userErrors { message field } } }",
-        "stagedUploadPath": post_params["key"],
+        "stagedUploadPath": post_params["key"][1],
     }
-    shopify_bulk_mutation(gql_vars=bulk_mut_vars)
+    print(shopify_bulk_mutation(gql_vars=bulk_mut_vars))
+    print("Shopify:: GQL Bulk Mutation Ran Successfully")
 
 
-def create_shopify_staged_upload_and_post(jsonl_filename):
+def create_shopify_staged_upload_and_post(jsonl_filename, data_dir):
     gql_dir = Path('.') / 'src' / 'gql'
     gql_stage_uploads_create = gql_dir / 'mutations' / 'stage_uploads_create.gql'
     gql_res = shopify_exec_gql(gql_stage_uploads_create, {})
-    print("Stage Post - Pre Mutate")
-    pprint_json(gql_res)
-    print("-"*20)
+
+    with open(os.path.join(data_dir, "stageUploadRes.json"), "w") as f:
+        f.write(json.dumps(gql_res))
+
+    print("Shopify:: GQL Stage Upload Mutation Successful")
     post_shopify_jsonl_data_and_run_mutate(gql_res, jsonl_filename)
 
 
@@ -233,38 +228,40 @@ def main():
     from dotenv import load_dotenv
     load_dotenv()
 
-    try:
-        data_directory = sys.argv[1]
-        gql_directory = sys.argv[2]
-    except:
-        print("Please supply 2 arguments.\n")
-        print("The first arg is an output directory for all the (JSON) inventory data from Discogs.\n")
-        print("The second arg is a filename for the Shopify jsonl bulk file that can be uploaded.\n")
-        print("Ex: `python src/main.py ./data/discogs_data/ ./data/gql_data/`")
-        sys.exit(1)
+    import argparse
 
-    # do_shopify()
-    # do_discogs()
+    parser = argparse.ArgumentParser(prog="Discogs-Shopify Inventory Transfer Tool",
+                                     description="Transfer inventories from one service to another")
+
+    parser.add_argument('--discogs-data', action='store', default='./data/discogs_data/')
+    parser.add_argument('--shopify_data', action='store', default='./data/shopify_data/')
+    parser.add_argument('--shopify-check-bulk-status', action='store_true')
+
+    args = parser.parse_args()
+
     do_shopify_setup()
 
-    jsonl_inventory = os.path.join(gql_directory, "gql_product_input.jsonl")
+    if args.shopify_check_bulk_status:
+        pprint_json(shopify_check_bulk_op_status())
+        pprint_json(shopify_check_bulk_op_count())
+        return
+        # pprint_json(shopify_get_first_three())
 
-    # remove output file - as we open it in append mode later
-    if os.path.isfile(jsonl_inventory):
-        os.remove(jsonl_inventory)
+    discogs_data_dir = args.discogs_data
+    shopify_data_dir = args.shopify_data
 
-    fetch_discogs_inventory(data_directory)
-    join_discogs_listings(data_directory, "all_listings.json")
-    all_inventory_json = load_inventory_json(
-        os.path.join(data_directory, "all_listings.json"))
-    write_shopify_jsonl_file(all_inventory_json["listings"], jsonl_inventory)
 
-    create_shopify_staged_upload_and_post(jsonl_inventory)
+    shopify_jsonl_inventory = os.path.join(shopify_data_dir, "gql_product_input.jsonl")
+    if os.path.isfile(shopify_jsonl_inventory):
+        os.remove(shopify_jsonl_inventory)
 
-    # pprint_json(shopify_get_first_three())
+    fetch_discogs_inventory(discogs_data_dir)
 
-    # pprint_json(shopify_check_bulk_op_count())
-    # pprint_json(shopify_check_bulk_op_status())
+    discogs_all_listings = os.path.join(discogs_data_dir, "all_listings.json")
+    inventory_json = load_inventory_json(discogs_all_listings)
+    write_shopify_jsonl_file(inventory_json["listings"], shopify_jsonl_inventory)
+
+    create_shopify_staged_upload_and_post(shopify_jsonl_inventory, shopify_data_dir)
 
 
 main()
