@@ -191,3 +191,4 @@ deploy.sh
 *res.json
 *all_listings.json
 *gql_product_input.jsonl
+stageUploadsRes.json

@@ -137,20 +137,43 @@ def pprint_json(json_input):
 
 def shopify_exec_gql(gql_path, gql_vars):
     gql_content = gql_path.read_text()
-
-    print(f"Executing file: {gql_path}")
-    print(f"GraphQL Content:\n {gql_content}")
-    print(f"GraphQL Variables: {gql_vars}")
-    result = shopify.GraphQL().execute(query=gql_content, variables=gql_vars)
-    print()
-    print("-"*30)
-
-    print("GraphQL Response:")
-    pprint_json(result)
-    return result
+    return shopify.GraphQL().execute(query=gql_content, variables=gql_vars)
 
 
-def do_shopify():
+def post_shopify_jsonl_data(data_directory, stage_upload_json, jsonl_filename):
+    with open(os.path.join(data_directory, stage_upload_json)) as f:
+        data = json.load(f)
+        staged_data = data["data"]["stagedUploadsCreate"]["stagedTargets"][0]
+        stage_url = staged_data["url"]
+        stage_params = staged_data["parameters"]
+
+        post_params = {}
+        for i in stage_params:
+            post_params[i["name"]] = i["value"]
+        post_params["file"] = open(jsonl_filename, "rb")
+
+        pprint(post_params)
+        # r = requests.post(url=stage_url, data=stage_params)
+
+
+def create_shopify_staged_upload():
+    gql_dir = Path('.') / 'src' / 'gql'
+    gql_stage_uploads_create = gql_dir / 'mutations' / 'stage_uploads_create.gql'
+    print(gql_stage_uploads_create)
+    # shopify_exec_gql(gql_stage_uploads_create, {})
+
+
+def shopify_get_first_three():
+    gql_dir = Path('.') / 'src/gql'
+
+    gql_first_three = Path(gql_dir /
+                           'queries' /
+                           'first_three.gql')
+
+    shopify_exec_gql(gql_first_three, {})
+
+
+def do_shopify_setup():
     # shopify.Session.setup(
     #     api_key=os.environ.get("SHOPIFY_API_KEY"),
     #     secret=os.environ.get("SHOPIFY_SECRET_API_KEY")
@@ -163,27 +186,22 @@ def do_shopify():
     session = shopify.Session(shop_url, api_version, access_token)
     shopify.ShopifyResource.activate_session(session)
 
-    gql_dir = Path('.') / 'src/gql'
+    # gql_dir = Path('.') / 'src/gql'
 
-    gql_first_three = Path(gql_dir /
-                           'queries' /
-                           'first_three.gql')
+    # gql_first_three = Path(gql_dir /
+    #                        'queries' /
+    #                        'first_three.gql')
 
-    gql_stage_uploads_create = Path(gql_dir /
-                                    'mutations' /
-                                    'stage_uploads_create.gql')
-
-    shopify_exec_gql(gql_first_three, {})
+    # gql_stage_uploads_create = Path(gql_dir /
+    #                                 'mutations' /
+    #                                 'stage_uploads_create.gql')
 
 
-def do_discogs():
+def do_discogs_setup():
     import discogs_client
-
     d = discogs_client.Client("Inventory Fetcher/0.1",
                               user_token=os.environ.get("DIXONMUSIC_API_TOKEN"))
-
     results = d.search('Stockholm By Night', type='release')
-    breakpoint()
 
 
 def main():
@@ -192,7 +210,7 @@ def main():
 
     try:
         data_directory = sys.argv[1]
-        jsonl_directory = sys.argv[2]
+        gql_directory = sys.argv[2]
     except:
         print("Please supply 2 arguments.\n")
         print("The first arg is an output directory for all the (JSON) inventory data from Discogs.\n")
@@ -200,7 +218,11 @@ def main():
         print("Ex: `python src/main.py ./data/discogs_data/ ./data/gql_data/`")
         sys.exit(1)
 
-    jsonl_filename = os.path.join(jsonl_directory, "gql_product_input.jsonl")
+    # do_shopify()
+    # do_discogs()
+    do_shopify_setup()
+
+    jsonl_filename = os.path.join(gql_directory, "gql_product_input.jsonl")
 
     # remove output file - as we open it in append mode later
     if os.path.isfile(jsonl_filename):
@@ -208,13 +230,12 @@ def main():
 
     fetch_discogs_inventory(data_directory)
     join_discogs_listings(data_directory, "all_listings.json")
+    all_inventory_json = load_inventory_json(os.path.join(data_directory, "all_listings.json"))
+    write_shopify_jsonl_file(all_inventory_json["listings"], jsonl_filename)
 
-    data = load_inventory_json(os.path.join(
-        data_directory, "all_listings.json"))
-    write_shopify_jsonl_file(data["listings"], jsonl_filename)
+    shopify_get_first_three()
 
-    # do_shopify()
-    # do_discogs()
+    # post_shopify_jsonl_data(gql_directory, "stageUploadsRes.json", jsonl_filename)
 
 
 main()
