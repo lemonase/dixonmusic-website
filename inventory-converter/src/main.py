@@ -8,12 +8,12 @@ import requests
 import shopify
 
 
-def fetch_inventory(data_directory,
-                    user_name="dixonmusic",
-                    api_token=os.environ.get("DIXONMUSIC_API_TOKEN"),
-                    page=1,
-                    per_page=100,
-                    ):
+def fetch_discogs_inventory(data_directory,
+                            user_name="dixonmusic",
+                            api_token=os.environ.get("DIXONMUSIC_API_TOKEN"),
+                            page=1,
+                            per_page=100,
+                            ):
     api_url = f"https://api.discogs.com/users/{user_name}/inventory"
 
     if not os.path.isfile(os.path.join(data_directory, "1_res.json")):
@@ -66,9 +66,8 @@ def load_inventory_json(json_path):
         return d
 
 
-def join_listings_inventory(data_directory):
+def join_discogs_listings(data_directory, all_listings_filename):
     all_listings = []
-    all_listings_filename = "all_listings.json"
 
     if os.path.isfile(os.path.join(data_directory, all_listings_filename)):
         return
@@ -91,15 +90,15 @@ def join_listings_inventory(data_directory):
 
 def write_shopify_jsonl_file(listings, filename):
     with open(filename, "a") as f:
-        for l in listings:
-            title = l["release"]["description"]
-            artist = l["release"]["artist"]
-            format = l["release"]["format"]
+        for listing in listings:
+            title = listing["release"]["description"]
+            artist = listing["release"]["artist"]
+            format = listing["release"]["format"]
 
-            condition = l["condition"]
-            sleeve_condition = l["sleeve_condition"]
-            comments = l["comments"]
-            price = l["price"]["value"]
+            condition = listing["condition"]
+            sleeve_condition = listing["sleeve_condition"]
+            comments = listing["comments"]
+            price = listing["price"]["value"]
 
             artist_html = f"<b>Artist</b>: {artist}<br>"
             title_html = f"<b>Title</b>: {title}<br>"
@@ -112,10 +111,10 @@ def write_shopify_jsonl_file(listings, filename):
                 condition_html + sleeve_condition_html + comments_html
 
             try:
-                image_uri = l["release"]["images"][0]["uri"]
+                image_uri = listing["release"]["images"][0]["uri"]
             except:
-                image_uri = l["release"]["thumbnail"]
-            custom_product_type = l["release"]["format"]
+                image_uri = listing["release"]["thumbnail"]
+            custom_product_type = listing["release"]["format"]
 
             listing_obj = {
                 "input": {
@@ -207,8 +206,8 @@ def main():
     if os.path.isfile(jsonl_filename):
         os.remove(jsonl_filename)
 
-    fetch_inventory(data_directory)
-    join_listings_inventory(data_directory)
+    fetch_discogs_inventory(data_directory)
+    join_discogs_listings(data_directory, "all_listings.json")
 
     data = load_inventory_json(os.path.join(
         data_directory, "all_listings.json"))
