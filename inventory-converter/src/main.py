@@ -30,7 +30,7 @@ def fetch_discogs_inventory(data_directory,
 
         # write out json pages to files
         while write_inventory_file(data_directory, cur_page, data):
-            print(f"fetching: {next_url}")
+            # print(f"fetching: {next_url}")
             data = requests.get(next_url).json()
             if next_url is not last_url:
                 try:
@@ -140,37 +140,72 @@ def shopify_exec_gql(gql_path, gql_vars):
     return shopify.GraphQL().execute(query=gql_content, variables=gql_vars)
 
 
-def post_shopify_jsonl_data(data_directory, stage_upload_json, jsonl_filename):
-    with open(os.path.join(data_directory, stage_upload_json)) as f:
-        data = json.load(f)
-        staged_data = data["data"]["stagedUploadsCreate"]["stagedTargets"][0]
-        stage_url = staged_data["url"]
-        stage_params = staged_data["parameters"]
+def post_shopify_jsonl_data_and_run_mutate(gql_res, jsonl_filename):
+    data = json.loads(gql_res)
+    staged_data = data["data"]["stagedUploadsCreate"]["stagedTargets"][0]
+    stage_url = staged_data["url"]
+    stage_params = staged_data["parameters"]
 
-        post_params = {}
-        for i in stage_params:
-            post_params[i["name"]] = i["value"]
-        post_params["file"] = open(jsonl_filename, "rb")
+    post_params = {}
+    for i in stage_params:
+        post_params[i["name"]] = (None, i["value"])
+    post_params["file"] = open(jsonl_filename, 'rb')
 
-        pprint(post_params)
-        # r = requests.post(url=stage_url, data=stage_params)
+    # files = {
+    #     'key': (None, post_params["key"]),
+    #     'x-goog-credential': (None, post_params['x-goog-credential']),
+    #     'x-goog-algorithm': (None, post_params['x-goog-algorithm']),
+    #     'x-goog-date': (None, post_params['x-goog-date']),
+    #     'x-goog-signature': (None, post_params['x-goog-signature']),
+    #     'policy': (None, post_params['policy']),
+    #     'acl': (None, post_params['acl']),
+    #     'Content-Type': (None, post_params['Content-Type']),
+    #     'success_action_status': (None, post_params['success_action_status']),
+    #     'file': open(jsonl_filename, 'rb'),
+    # }
+
+    res = requests.post(stage_url, files=files, headers={'User-Agent': 'curl/7.81.0'})
+
+    
+    bulk_mut_vars = {
+        "mutation": "mutation call($input: ProductInput!) { productCreate(input: $input) { product {id title variants(first: 10) {edges {node {id title inventoryQuantity }}}} userErrors { message field } } }",
+        "stagedUploadPath": post_params["key"],
+    }
+    shopify_bulk_mutation(gql_vars=bulk_mut_vars)
 
 
-def create_shopify_staged_upload():
+def create_shopify_staged_upload_and_post(jsonl_filename):
     gql_dir = Path('.') / 'src' / 'gql'
     gql_stage_uploads_create = gql_dir / 'mutations' / 'stage_uploads_create.gql'
-    print(gql_stage_uploads_create)
-    # shopify_exec_gql(gql_stage_uploads_create, {})
+    gql_res = shopify_exec_gql(gql_stage_uploads_create, {})
+    print("Stage Post - Pre Mutate")
+    pprint_json(gql_res)
+    print("-"*20)
+    post_shopify_jsonl_data_and_run_mutate(gql_res, jsonl_filename)
+
+
+def shopify_bulk_mutation(gql_vars={}):
+    gql_dir = Path('.') / 'src' / 'gql'
+    gql_bulk_op_mut = gql_dir / 'mutations' / 'bulk_op_run_mutation.gql'
+    return shopify_exec_gql(gql_bulk_op_mut, gql_vars)
 
 
 def shopify_get_first_three():
-    gql_dir = Path('.') / 'src/gql'
+    gql_dir = Path('.') / 'src' / 'gql'
+    gql_first_three = Path(gql_dir / 'queries' / 'first_three.gql')
+    return shopify_exec_gql(gql_first_three, {})
 
-    gql_first_three = Path(gql_dir /
-                           'queries' /
-                           'first_three.gql')
 
-    shopify_exec_gql(gql_first_three, {})
+def shopify_check_bulk_op_count():
+    gql_dir = Path('.') / 'src' / 'gql'
+    gql = Path(gql_dir / 'queries' / 'check_bulk_op_count.gql')
+    return shopify_exec_gql(gql, {})
+
+
+def shopify_check_bulk_op_status():
+    gql_dir = Path('.') / 'src' / 'gql'
+    gql = Path(gql_dir / 'queries' / 'check_bulk_op_status.gql')
+    return shopify_exec_gql(gql, {})
 
 
 def do_shopify_setup():
@@ -185,16 +220,6 @@ def do_shopify_setup():
     access_token = os.environ.get("SHOPIFY_ADMIN_ACCESS_TOKEN")
     session = shopify.Session(shop_url, api_version, access_token)
     shopify.ShopifyResource.activate_session(session)
-
-    # gql_dir = Path('.') / 'src/gql'
-
-    # gql_first_three = Path(gql_dir /
-    #                        'queries' /
-    #                        'first_three.gql')
-
-    # gql_stage_uploads_create = Path(gql_dir /
-    #                                 'mutations' /
-    #                                 'stage_uploads_create.gql')
 
 
 def do_discogs_setup():
@@ -222,20 +247,24 @@ def main():
     # do_discogs()
     do_shopify_setup()
 
-    jsonl_filename = os.path.join(gql_directory, "gql_product_input.jsonl")
+    jsonl_inventory = os.path.join(gql_directory, "gql_product_input.jsonl")
 
     # remove output file - as we open it in append mode later
-    if os.path.isfile(jsonl_filename):
-        os.remove(jsonl_filename)
+    if os.path.isfile(jsonl_inventory):
+        os.remove(jsonl_inventory)
 
     fetch_discogs_inventory(data_directory)
     join_discogs_listings(data_directory, "all_listings.json")
-    all_inventory_json = load_inventory_json(os.path.join(data_directory, "all_listings.json"))
-    write_shopify_jsonl_file(all_inventory_json["listings"], jsonl_filename)
+    all_inventory_json = load_inventory_json(
+        os.path.join(data_directory, "all_listings.json"))
+    write_shopify_jsonl_file(all_inventory_json["listings"], jsonl_inventory)
 
-    shopify_get_first_three()
+    create_shopify_staged_upload_and_post(jsonl_inventory)
 
-    # post_shopify_jsonl_data(gql_directory, "stageUploadsRes.json", jsonl_filename)
+    # pprint_json(shopify_get_first_three())
+
+    # pprint_json(shopify_check_bulk_op_count())
+    # pprint_json(shopify_check_bulk_op_status())
 
 
 main()
