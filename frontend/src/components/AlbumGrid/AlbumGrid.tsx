@@ -22,10 +22,11 @@ function AlbumGrid() {
       .then((data) => {
         setLoading(false);
         setListings(data.listings);
-      });
+      })
+      .catch((err) => { console.log("error fetching from api") });
   };
 
-  const listingsItems = listings.map((listing) => (
+  const listingsItems = listings?.map((listing) => (
     listing["release"]["images"][0] !== undefined ?
       <AlbumCard
         key={listing["id"]}
