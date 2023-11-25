@@ -17,9 +17,11 @@ requests_cache.install_cache(
 # Discogs API docs:
 # https://www.discogs.com/developers
 
+user_name = os.environ.get("DIXONMUSIC_USERNAME")
+api_token = os.environ.get("DIXONMUSIC_API_TOKEN")
 
-def fetch_inventory(user_name="dixonmusic",
-                    api_token=os.environ.get("DIXONMUSIC_API_TOKEN"),
+def fetch_inventory(user_name=user_name,
+                    api_token=api_token,
                     page=1,
                     per_page=100
                     ):
@@ -69,12 +71,12 @@ app = FastAPI(middleware=middleware)
 
 @app.get("/")
 async def root():
-    return {"message": "Backend API for dixonmusic.net"}
+    return {"message": "Backend API server for dixonmusic.net. This is a proxy/cache server to the official Discogs API."}
 
 
 @app.get("/hello/")
 async def hello():
-    return {"message": "Hello World"}
+    return {"message": f"Hello, {user_name}!"}
 
 
 @app.get("/ping/")
